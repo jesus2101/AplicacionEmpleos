@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>VACANTES</title>
+<link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body>
+<h1>LISTA DE VACANTES</h1>
+<img th:src="@{/images/logo.jpg}" width="80" height="80">
+
+
+<table class="table table-hover table-striped table-bordered">
+   <thead  class="thead-dark">
+    <th>Logo</th>
+    <th>Id</th>
+    <th>Nombre</th>
+    <th>Descripción de la Vacante</th>
+    <th>Fecha de Publicación</th>
+    <th>Salario Inicial</th>
+    <th>Destacado</th>
+    <th>Detalles</th> 
+    <th>Borrar</th> 
+   </thead>
+   <tbody>
+      <tr th:each="p:${list}">
+          <td><img th:src="@{/images/{img} (img=${p.imagen})}" width="80" height="80"></td>
+          <td th:text="${p.id}"></td>
+          <td th:text="${p.nombre}"></td>
+          <td th:text="${p.descripcion}"></td>
+          <!-- <td th:text="${p.fecha}"></td> -->
+          <td th:text="${#dates.format(p.fecha,'dd-MM-yyyy')}"></td>
+          <td th:text="${p.salario}"></td>
+          
+          <!-- <td th:text="${p.destacado}"></td> -->
+          <!-- <td th:text="${p.destacado}==1?'Si':'No'"></td> -->
+          <td>
+          	<span th:if="${p.destacado==1}" class="badge badge-success">Si</span>
+          	<span th:unless="${p.destacado==1}" class="badge badge-danger">No</span>
+          </td>
+          <td>
+          <a th:href="@{vacantes/vista/{id}(id=${p.id})}" class="btn btn-success">Detalle</a>
+          </td>
+          <td>
+          <a th:href="@{vacantes/eliminar(id=${p.id})}" class="btn btn-danger">Borrar</a>
+          </td>
+          
+      </tr>
+   </tbody>	
+</table>
+
+
+
+<script th:src="@{/bootstrap/js/bootstrap.js}">
+</body>
+</html>
